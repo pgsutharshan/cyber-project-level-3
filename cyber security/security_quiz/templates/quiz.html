@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Cybersecurity quiz | Security Awareness{% endblock %}
+{% block content %}
+<header class="page-heading quiz-heading"><div><div class="section-kicker">FIELD CHECK / KNOWLEDGE ASSESSMENT</div><h1>Think before you click.</h1><p class="muted-copy">Choose one answer for each scenario. Your result and explanations appear after submission.</p></div><div class="quiz-count"><strong>{{ questions|length }}</strong><span>QUESTIONS</span></div></header>
+<form action="{{ url_for('quiz_result') }}" method="post" id="quiz-form"><input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  {% for question in questions %}<input type="hidden" name="question_id" value="{{ question.id }}"><fieldset class="question-block"><legend><span class="question-index">{{ '%02d'|format(loop.index) }}</span>{{ question.question }}</legend><div class="option-grid">{% for letter, option in [('A', question.option_a), ('B', question.option_b), ('C', question.option_c), ('D', question.option_d)] %}<label class="answer-option"><input type="radio" name="answer_{{ question.id }}" value="{{ letter }}" required><span class="option-letter">{{ letter }}</span><span>{{ option }}</span></label>{% endfor %}</div></fieldset>{% endfor %}
+  <div class="quiz-submit"><span class="muted-copy">Answers are checked when you submit.</span><button class="btn btn-cyan" type="submit">Submit answers <span aria-hidden="true">→</span></button></div>
+</form>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Create account | Security Awareness{% endblock %}
+{% block content %}
+<section class="auth-layout">
+  <div class="auth-aside"><span class="eyebrow">BUILD YOUR INSTINCTS / 02</span><h1>Awareness is a habit, not a <em>checkbox.</em></h1><p>Short, practical scenarios. Clear feedback. Better decisions.</p><div class="scan-line"></div><span class="mono-note">ENROLLMENT: OPEN</span></div>
+  <div class="auth-form"><div class="section-kicker">NEW LEARNER</div><h2>Create account</h2><p class="muted-copy">Your progress stays attached to your account.</p>
+    <form method="post" class="form-stack"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><label for="name">Full name</label><input class="form-control" id="name" name="name" type="text" autocomplete="name" maxlength="100" required><label for="email">Email address</label><input class="form-control" id="email" name="email" type="email" autocomplete="email" maxlength="254" required><label for="password">Password</label><input class="form-control" id="password" name="password" type="password" autocomplete="new-password" minlength="10" maxlength="128" required><small class="field-hint">Use at least 10 characters.</small><button class="btn btn-cyan w-100 mt-2" type="submit">Create account <span aria-hidden="true">→</span></button></form>
+    <p class="auth-switch">Already registered? <a href="{{ url_for('login') }}">Sign in</a></p>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}Edit question | Security Awareness{% endblock %}
+{% block content %}
+<header class="page-heading"><div><div class="section-kicker">CONTROL ROOM / CONTENT</div><h1>Edit question</h1><p class="muted-copy">Update the prompt, answers, or learning explanation.</p></div><a class="text-link" href="{{ url_for('questions') }}">← Question bank</a></header>
+{% include 'question_form.html' %}
+{% endblock %}

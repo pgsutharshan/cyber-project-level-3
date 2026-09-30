@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Sign in | Security Awareness{% endblock %}
+{% block content %}
+<section class="auth-layout">
+  <div class="auth-aside"><span class="eyebrow">HUMAN FIREWALL / 01</span><h1>Good security starts with a <em>second look.</em></h1><p>Build everyday instincts for the moments that matter.</p><div class="scan-line"></div><span class="mono-note">STATUS: AWARENESS ACTIVE</span></div>
+  <div class="auth-form"><div class="section-kicker">MEMBER ACCESS</div><h2>Welcome back</h2><p class="muted-copy">Sign in to continue your training.</p>
+    <form method="post" class="form-stack"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><label for="email">Email address</label><input class="form-control" id="email" name="email" type="email" autocomplete="email" maxlength="254" required><label for="password">Password</label><input class="form-control" id="password" name="password" type="password" autocomplete="current-password" required><button class="btn btn-cyan w-100 mt-2" type="submit">Sign in <span aria-hidden="true">→</span></button></form>
+    <p class="auth-switch">New here? <a href="{{ url_for('register') }}">Create a learner account</a></p>
+  </div>
+</section>
+{% endblock %}

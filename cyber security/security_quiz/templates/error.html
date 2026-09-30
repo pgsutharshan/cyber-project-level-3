@@ -1,0 +1,3 @@
+{% extends 'base.html' %}
+{% block title %}{{ code }} | Security Awareness{% endblock %}
+{% block content %}<section class="error-panel"><div class="section-kicker">REQUEST INTERRUPTED / {{ code }}</div><h1>{{ message }}</h1><a class="btn btn-cyan" href="{{ url_for('index') }}">Return to safety</a></section>{% endblock %}

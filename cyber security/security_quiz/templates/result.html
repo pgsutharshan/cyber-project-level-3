@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Quiz result | Security Awareness{% endblock %}
+{% block content %}
+<header class="result-hero"><div><div class="section-kicker">ASSESSMENT COMPLETE</div><h1>Your awareness, measured.</h1><p class="muted-copy">Review each response and take one practical idea with you.</p></div><div class="score-dial"><strong>{{ percentage }}<small>%</small></strong><span>{{ score }} / {{ total }} CORRECT</span></div></header>
+<section class="content-section"><div class="section-title-row"><div><div class="section-kicker">ANSWER REVIEW</div><h2>What you learned</h2></div><a class="btn btn-outline-cyan" href="{{ url_for('dashboard') }}">Dashboard</a></div>
+  {% for item in reviewed %}<article class="review-item"><div class="review-top"><span class="question-index">{{ '%02d'|format(loop.index) }}</span><span class="review-status {% if item.is_correct %}good{% else %}needs-work{% endif %}">{% if item.is_correct %}Correct{% else %}Review this{% endif %}</span></div><h3>{{ item.question }}</h3><p class="answer-line">Your answer: <strong>{% if item.selected %}{{ item['option_' ~ item.selected|lower] }}{% else %}Not answered{% endif %}</strong></p><p class="answer-line">Correct answer: <strong>{{ item['option_' ~ item.correct_answer|lower] }}</strong></p><p class="explanation">{{ item.explanation }}</p></article>{% endfor %}
+</section>
+<section class="tips-band"><div><div class="section-kicker">TAKE IT WITH YOU</div><h2>Three habits that help.</h2></div><ol>{% for tip in tips %}<li>{{ tip }}</li>{% endfor %}</ol></section>
+<div class="page-actions"><a class="btn btn-cyan" href="{{ url_for('quiz') }}">Try another quiz</a><a class="text-link" href="{{ url_for('history') }}">View all attempts →</a></div>
+{% endblock %}

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10191d">
+  <title>{% block title %}Security Awareness Quiz{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg app-nav">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('index') }}"><span class="brand-mark">S</span> SIGNAL<span class="brand-muted">/SECURITY</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <div class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+          {% if session.get('user_id') %}
+            <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a class="nav-link" href="{{ url_for('quiz') }}">Take quiz</a>
+            <a class="nav-link" href="{{ url_for('history') }}">History</a>
+            {% if session.get('role') == 'admin' %}<a class="nav-link" href="{{ url_for('admin_dashboard') }}">Admin</a>{% endif %}
+            <span class="nav-user">{{ session.get('name') }}</span>
+            <form action="{{ url_for('logout') }}" method="post" class="d-inline"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="btn btn-sm btn-outline-cyan" type="submit">Sign out</button></form>
+          {% else %}
+            <a class="nav-link" href="{{ url_for('login') }}">Sign in</a>
+            <a class="btn btn-sm btn-cyan" href="{{ url_for('register') }}">Create account</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </nav>
+  <main class="container page-shell">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}<div class="flash-stack" aria-live="polite">{% for category, message in messages %}<div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">{{ message }}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>{% endfor %}</div>{% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="app-footer"><div class="container"><span>SECURITY AWARENESS / LEARN. NOTICE. RESPOND.</span><span>LOCAL TRAINING ENVIRONMENT</span></div></footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
